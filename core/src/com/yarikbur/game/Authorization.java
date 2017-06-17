@@ -54,7 +54,8 @@ public class Authorization implements Screen {
 	}
 	
 	public Authorization(Main main){ this.main = main; }
-	
+	public Authorization() { }
+
 	private void create(){
 		answer = " ";
 		pass = new StringBuffer();

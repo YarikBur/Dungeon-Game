@@ -84,12 +84,14 @@ public class MyGame extends ApplicationAdapter implements InputProcessor, Screen
 	public int m[][] = new int[22][40];
 	public int mItems[][] = new int[22][40];
 	
-	public MyGame(Main main) { this.main = main; }
+	public MyGame(Main main, String player) { this.main = main; this.playerClass = player; }
+	public MyGame() { }
 	@SuppressWarnings("unused")
 	private float elapsed = 0;
 
 	@Override
 	public void show() {
+		System.out.println(playerClass);
 		FreeTypeFontGenerator gen = new FreeTypeFontGenerator(Gdx.files.internal("fonts\\8bit.ttf"));
 		FreeTypeFontParameter param = new FreeTypeFontParameter();
 		param.size = 7;
@@ -175,8 +177,8 @@ public class MyGame extends ApplicationAdapter implements InputProcessor, Screen
 		else if(playerClass=="The Robber") player = new Texture(Gdx.files.internal("atlas\\rogue.png"));
 		else if(playerClass=="Hunteress") player = new Texture(Gdx.files.internal("atlas\\ranger.png"));
 		
-		TextureRegion tmpPlayer[][] = TextureRegion.split(player, player.getWidth()/20, player.getHeight()/8-1);
-		for(int y=0;y<7;y++) for(int x=0;x<20;x++) textureRegionsPlayer.put("player"+y+"_"+x, tmpPlayer[y][x]);
+		TextureRegion tmpPlayer[][] = TextureRegion.split(player, player.getWidth()/21, player.getHeight()/7);
+		for(int y=0;y<7;y++) for(int x=0;x<21;x++) textureRegionsPlayer.put("player"+y+"_"+x, tmpPlayer[y][x]);
 		
 		Texture tiles0 = new Texture(Gdx.files.internal("atlas\\tiles0.png"));
 		TextureRegion tmpTiles0[][] = TextureRegion.split(tiles0, tiles0.getWidth()/16, tiles0.getHeight()/4);

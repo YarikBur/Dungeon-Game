@@ -30,8 +30,8 @@ public class Menu implements InputProcessor, Screen {
 	public  static String pass;
 	private static float yy, yY;
 	public  static boolean logined = false;
-	public  Authorization au;
-	public  MyGame game;
+	Authorization au;
+	MyGame game;
 	Map<String, TextureRegion> Buttons = new HashMap<String, TextureRegion>();
 	Map<String, TextureRegion> Banner = new HashMap<String, TextureRegion>();
 	Map<String, TextureRegion> Hero = new HashMap<String, TextureRegion>();
@@ -56,8 +56,8 @@ public class Menu implements InputProcessor, Screen {
 		font8bit = gen.generateFont(param);
 		gen.dispose();
 		gl = Gdx.graphics;
-		game = new MyGame(main);
-		au = new Authorization(main);
+		game = new MyGame();
+		au = new Authorization();
 		Gdx.input.setInputProcessor(this);
 		load();
 		try {
@@ -163,6 +163,7 @@ public class Menu implements InputProcessor, Screen {
 	private void dis(String scr, String player){
 		font8bit.dispose();
 		batch.dispose();
+		main.player = player;
 		game.playerClass = player;
 		if(scr.equals("au")) main.setScreen(main.authorization);
 		else if(scr.equals("game")) main.setScreen(main.game);
