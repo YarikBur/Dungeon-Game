@@ -3,9 +3,9 @@ package com.yarikbur.game.desktop;
 import com.badlogic.gdx.Files.FileType;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import com.yarikbur.game.Main;
+import ru.yarikbur.main.Main;
 
-public class DesktopLauncher {
+public class DungeonLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.addIcon("not_atlas\\icon-128.png", FileType.Internal);
