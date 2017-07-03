@@ -15,6 +15,7 @@ public class DungeonLauncher {
 		config.title = "Dungeon";
 		config.width = 40*16;
 		config.height = 22*16;
+		config.resizable = false;
 		new LwjglApplication(new Main(), config);
 	}
 }
