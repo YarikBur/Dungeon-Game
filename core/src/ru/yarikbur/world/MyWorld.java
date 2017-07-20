@@ -7,7 +7,7 @@ public class MyWorld {
 static World world = null;
 	
 	public MyWorld(float x, float y){
-		if(world==null)world = new World(new Vector2(x, y), false);
+		if(world==null) world = new World(new Vector2(x, y), false);
 	}
 	public World getWorld(){ return world; }
 	public void dispose(){ world.dispose(); }

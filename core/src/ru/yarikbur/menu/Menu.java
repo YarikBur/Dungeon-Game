@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-import ru.yarikbur.game.Game;
 import ru.yarikbur.input.All;
 import ru.yarikbur.main.Main;
 
@@ -34,13 +33,15 @@ public class Menu implements Screen {
 		if(input.getDebug() && input.getKeycode() != 0) font.draw(batch, "Key: "+input.getKeycode(), 0, Gdx.graphics.getHeight()-15);
 	}
 	
+	@SuppressWarnings("static-access")
 	private void rendMenu(){
 //		if(input.getKeycode()==21) 
+		if(input.getKeycode()==35) Main.setScr(Main.game);
 	}
 	
 	float r=0,g=0,b=0;
 	boolean upR=true, upG=true, upB=true;
-	@SuppressWarnings("static-access")
+	
 	@Override
 	public void render(float delta) {
 		Gdx.gl.glClearColor(r, g, b, 1);
@@ -48,7 +49,6 @@ public class Menu implements Screen {
 		
 		batch.begin();
 		if(location.equals("menu")) rendMenu();
-		if(input.getKeycode()==35) Main.setScr(new Game());
 		
 		mainText();
 		batch.end();

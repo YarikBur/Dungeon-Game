@@ -3,39 +3,42 @@ package ru.yarikbur.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import ru.yarikbur.game.player.Stats;
+import ru.yarikbur.input.All;
 import ru.yarikbur.main.Main;
-import ru.yarikbur.map.Render;
-import ru.yarikbur.mobs.Player;
 
 public class Game implements Screen {
-	private static Player player;
-	private Render rend;
+	private All input = new All();
+	private static Stats stats;
 	
-	private static SpriteBatch batch;
+	private SpriteBatch batch;
+	
+	private BitmapFont font;
 
 	@SuppressWarnings("static-access")
 	@Override
 	public void show() {
 		batch = Main.getBatch();
-		player = new Player();
-		player.createPlayer("atlas\\mage.png", "Player");
-		rend = new Render();
-		rend.renderMap();
+		font = new BitmapFont();
+		stats = new Stats();
+		
+		Gdx.input.setInputProcessor(input.getInputMultiplexer());
 	}
-	
+
 	@Override
 	public void render(float delta) {
-		Gdx.gl.glClearColor(0, 0, 0, 1);
+		Gdx.gl.glClearColor(0.5f, 0.2f, 0.4f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
+		batch.begin();
 		
-		updatePositions();
-	}
-	
-	private void updatePositions(){
+//		System.out.println("Name: " + stats.getName());
+		font.draw(batch, "Name: " + stats.getName(), 0, 10);
 		
+		batch.end();
 	}
 
 	@Override
@@ -63,7 +66,8 @@ public class Game implements Screen {
 
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
-		
+		try{ batch.dispose(); }
+		catch(java.lang.IllegalArgumentException e){ }
+		font.dispose();
 	}
 }
