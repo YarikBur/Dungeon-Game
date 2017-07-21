@@ -48,7 +48,9 @@ public class Menu implements Screen {
 		font.draw(batch, "Intelligence: " + stats.getIntelligence(), 0, Gdx.graphics.getHeight()-125);
 		font.draw(batch, "Luck: " + stats.getLuck(), 0, Gdx.graphics.getHeight()-140);
 		font.draw(batch, "Wisdom: " + stats.getWisdom(), 0, Gdx.graphics.getHeight()-155);
-		font.draw(batch, "Experience: " + stats.getExperience(), 0, Gdx.graphics.getHeight()-175);
+		font.draw(batch, "Level: " + stats.getLevel(), 0, Gdx.graphics.getHeight()-170);
+		font.draw(batch, "Unassigned points: " + stats.getPoints(), 0, Gdx.graphics.getHeight()-185);
+		font.draw(batch, "Experience: " + stats.getExperience() + "/" + stats.getExperienceMax(), 0, Gdx.graphics.getHeight()-205);
 	}
 	
 	@SuppressWarnings("static-access")
@@ -63,6 +65,7 @@ public class Menu implements Screen {
 	@SuppressWarnings("static-access")
 	@Override
 	public void render(float delta) {
+		stats.updateLevel();
 		stats.updateStats();
 		stats.regenerationStats();
 		Gdx.gl.glClearColor(r, g, b, 1);
@@ -73,6 +76,7 @@ public class Menu implements Screen {
 		if(input.getKeycode()==37) stats.setIntelligence(stats.getIntelligence()+1); // I
 		if(input.getKeycode()==47) stats.setStamina(stats.getStamina()+1); // S
 		if(input.getKeycode()==51) stats.setWisdom(stats.getWisdom()+1); // W
+		if(input.getKeycode()==44) stats.setExperience(stats.getExperience()+3);
 		
 		mainText();
 		statsPlayerDraw();
