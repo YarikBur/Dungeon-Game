@@ -10,6 +10,8 @@ import ru.yarikbur.input.All;
 import ru.yarikbur.main.Main;
 
 public class Menu implements Screen {
+	private final Main main;
+	
 	private SpriteBatch batch;
 	
 	private BitmapFont font;
@@ -19,14 +21,16 @@ public class Menu implements Screen {
 	private String location = "menu";
 	private ru.yarikbur.game.player.Stats stats;
 	
+	public Menu(final Main main) { this.main = main; }
+
 	@SuppressWarnings("static-access")
 	@Override
 	public void show() {
-		batch = Main.getBatch();
-		font = new BitmapFont();
-		stats = new ru.yarikbur.game.player.Stats();
+		batch = main.getBatch();
+		font = main.getFont();
 		
 		Gdx.input.setInputProcessor(input.getInputMultiplexer());
+		stats = new ru.yarikbur.game.player.Stats();
 		stats.setStartTime(System.currentTimeMillis());
 	}
 	
@@ -36,50 +40,24 @@ public class Menu implements Screen {
 		if(input.getDebug() && input.getKeycode() != 0) font.draw(batch, "Key: "+input.getKeycode(), 0, Gdx.graphics.getHeight()-15);
 	}
 	
-	private void statsPlayerDraw(){
-		font.draw(batch, "Name: " + stats.getName(), 0, Gdx.graphics.getHeight()-30);
-		if(stats.getHealth()==stats.getHealthMax()) font.draw(batch, "Health: " + stats.getHealth(), 0, Gdx.graphics.getHeight()-50);
-		else font.draw(batch, "Health: " + stats.getHealth() + "/" + stats.getHealthMax() + "   Regeneration "+ (stats.getRegenerationHealth()*60) +" per minute", 0, Gdx.graphics.getHeight()-50);
-		if(stats.getMana()==stats.getManaMax()) font.draw(batch, "Mana: " + stats.getMana(), 0, Gdx.graphics.getHeight()-65);
-		else font.draw(batch, "Mana: " + stats.getMana() + "/" + stats.getManaMax() + "   Regeneration "+ (stats.getRegenerationMana()*60) +" per minute", 0, Gdx.graphics.getHeight()-65);
-		font.draw(batch, "Force: " + stats.getForce(), 0, Gdx.graphics.getHeight()-80);
-		font.draw(batch, "Stamina: " + stats.getStamina(), 0, Gdx.graphics.getHeight()-95);
-		font.draw(batch, "Adroitness: " + stats.getAdroitness(), 0, Gdx.graphics.getHeight()-110);
-		font.draw(batch, "Intelligence: " + stats.getIntelligence(), 0, Gdx.graphics.getHeight()-125);
-		font.draw(batch, "Luck: " + stats.getLuck(), 0, Gdx.graphics.getHeight()-140);
-		font.draw(batch, "Wisdom: " + stats.getWisdom(), 0, Gdx.graphics.getHeight()-155);
-		font.draw(batch, "Level: " + stats.getLevel(), 0, Gdx.graphics.getHeight()-170);
-		font.draw(batch, "Unassigned points: " + stats.getPoints(), 0, Gdx.graphics.getHeight()-185);
-		font.draw(batch, "Experience: " + stats.getExperience() + "/" + stats.getExperienceMax(), 0, Gdx.graphics.getHeight()-205);
-	}
-	
 	@SuppressWarnings("static-access")
 	private void rendMenu(){
 //		if(input.getKeycode()==21) 
-		if(input.getKeycode()==35) Main.setScr(Main.game);
+		if(input.getKeycode()==35) main.setScreen(new ru.yarikbur.game.player.StatsShow(main));
 	}
 	
 	float r=0,g=0,b=0;
 	boolean upR=true, upG=true, upB=true;
 	
-	@SuppressWarnings("static-access")
 	@Override
 	public void render(float delta) {
-		stats.updateLevel();
-		stats.updateStats();
-		stats.regenerationStats();
 		Gdx.gl.glClearColor(r, g, b, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
 		batch.begin();
 		if(location.equals("menu")) rendMenu();
-		if(input.getKeycode()==37) stats.setIntelligence(stats.getIntelligence()+1); // I
-		if(input.getKeycode()==47) stats.setStamina(stats.getStamina()+1); // S
-		if(input.getKeycode()==51) stats.setWisdom(stats.getWisdom()+1); // W
-		if(input.getKeycode()==44) stats.setExperience(stats.getExperience()+3);
 		
 		mainText();
-		statsPlayerDraw();
 		batch.end();
 		
 		if(upR){
@@ -130,7 +108,6 @@ public class Menu implements Screen {
 
 	@Override
 	public void dispose() {
-		batch.dispose();
-		font.dispose();
+		
 	}
 }

@@ -15,7 +15,7 @@ public class Stats {
 	private static float Adroitness = 11; // Ловкость
 	private static float Intelligence = 8; // Интеллект
 	private static int Experience = 0; // Опыт
-	private static int ExperienceMax = newExperienceMax(); // Опыт Максимум
+	private static int ExperienceMax = 100; // Опыт Максимум
 	private static float Luck = 9; // Удача
 	private static float Wisdom = 6; // Мудрость
 	private static float regenerationManaAdd = 0;
@@ -101,22 +101,26 @@ public class Stats {
 		Health = BigDecimal.valueOf(Health).setScale(1,BigDecimal.ROUND_HALF_DOWN).floatValue();
 	}
 	
+	private static float i=100f;
 	private static int newExperienceMax(){
-		float newLevel = 100f+((Force+Stamina+Adroitness+Intelligence+Luck+Wisdom+Points)/2f)+Stamina+Intelligence+Force+Wisdom+(Level*2f)+(((ManaMax*1.5f)+HealthMax)/2f);
+		float newLevel = i+((Force+Stamina+Adroitness+Intelligence+Luck+Wisdom+Points)/2f)+Stamina+Intelligence+Force+Wisdom+(Level*4.5f)+(((ManaMax*1.5f)+HealthMax)/2f);
+		i=100f*(Level*25f);
 		return BigDecimal.valueOf(newLevel).setScale(0,BigDecimal.ROUND_HALF_DOWN).intValue();
 	}
 	
 	private void levelUp(){
-		float newManaMax = ManaMax + ManaMax/100*6;
+		float newManaMax = ManaMax + ManaMax/100*4;
 		ManaMax = BigDecimal.valueOf(newManaMax).setScale(1,BigDecimal.ROUND_HALF_DOWN).floatValue();
 		float newHealthMax = HealthMax + HealthMax/100*4;
 		HealthMax = BigDecimal.valueOf(newHealthMax).setScale(1,BigDecimal.ROUND_HALF_DOWN).floatValue();
-		Points+=5;
+		if(Level==1) Points+=10;
+		else Points+=5;
 		Level++;
 		int remainder = -ExperienceMax + Experience;
 		if(remainder<0) Experience = 0;
 		else Experience = remainder;
-		ExperienceMax = newExperienceMax();
+		if(Level==2) ExperienceMax = 100+(newExperienceMax()/2);
+		else ExperienceMax = newExperienceMax();
 	}
 	
 	public void updateLevel(){

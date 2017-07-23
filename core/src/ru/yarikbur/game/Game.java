@@ -11,6 +11,7 @@ import ru.yarikbur.input.All;
 import ru.yarikbur.main.Main;
 
 public class Game implements Screen {
+	private final Main main;
 	private All input = new All();
 	private static Stats stats;
 	
@@ -18,11 +19,13 @@ public class Game implements Screen {
 	
 	private BitmapFont font;
 
+	public Game(final Main main) { this.main = main; }
+
 	@SuppressWarnings("static-access")
 	@Override
 	public void show() {
-		batch = Main.getBatch();
-		font = new BitmapFont();
+		batch = main.getBatch();
+		font = main.getFont();
 		stats = new Stats();
 		
 		Gdx.input.setInputProcessor(input.getInputMultiplexer());
@@ -35,27 +38,23 @@ public class Game implements Screen {
 		
 		batch.begin();
 		
-//		System.out.println("Name: " + stats.getName());
-		font.draw(batch, "Name: " + stats.getName(), 0, 10);
+		
 		
 		batch.end();
 	}
 
 	@Override
 	public void resize(int width, int height) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void pause() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void resume() {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -66,8 +65,6 @@ public class Game implements Screen {
 
 	@Override
 	public void dispose() {
-		try{ batch.dispose(); }
-		catch(java.lang.IllegalArgumentException e){ }
-		font.dispose();
+		
 	}
 }
