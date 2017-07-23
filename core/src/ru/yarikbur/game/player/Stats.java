@@ -2,6 +2,10 @@ package ru.yarikbur.game.player;
 
 import java.math.BigDecimal;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
 public class Stats {
 	private static long startTime;
 	
@@ -107,15 +111,29 @@ public class Stats {
 		i=100f*(Level*25f);
 		return BigDecimal.valueOf(newLevel).setScale(0,BigDecimal.ROUND_HALF_DOWN).intValue();
 	}
+	private static float hTime = 0;
+	private static float hLevel = 0;
+	public void Level50(SpriteBatch batch, BitmapFont font){
+		if(time<=hTime){
+			font.draw(batch, "Congrats!", Gdx.graphics.getWidth()/2-50, Gdx.graphics.getHeight()/2+8);
+			font.draw(batch, "You have "+hLevel+" level", Gdx.graphics.getWidth()/2-75, Gdx.graphics.getHeight()/2-8);
+		}
+	}
 	
 	private void levelUp(){
 		float newManaMax = ManaMax + ManaMax/100*4;
 		ManaMax = BigDecimal.valueOf(newManaMax).setScale(1,BigDecimal.ROUND_HALF_DOWN).floatValue();
 		float newHealthMax = HealthMax + HealthMax/100*4;
 		HealthMax = BigDecimal.valueOf(newHealthMax).setScale(1,BigDecimal.ROUND_HALF_DOWN).floatValue();
-		if(Level==1) Points+=10;
-		else Points+=5;
 		Level++;
+		if(Level%10==0) System.out.println("Congratulations, you have "+Level+" level!");
+		if(Level%50==0){
+			Points+=20;
+			hTime = time+1.5f;
+			hLevel=Level;
+		}
+		else if(Level%10==0) Points+=10;
+		else Points+=5;
 		int remainder = -ExperienceMax + Experience;
 		if(remainder<0) Experience = 0;
 		else Experience = remainder;

@@ -56,12 +56,14 @@ public class StatsShow implements Screen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
 		statsPlayerDraw();
+		
+		stats.Level50(batch, font);
 		batch.end();
 		
 		if(input.getKeycode()==37) stats.setIntelligence(stats.getIntelligence()+1); // I
 		if(input.getKeycode()==47) stats.setStamina(stats.getStamina()+1); // S
 		if(input.getKeycode()==51) stats.setWisdom(stats.getWisdom()+1); // W
-		if(input.getKeycode()==44) stats.setExperience(stats.getExperience()+3000); // P
+		if(input.getKeycode()==44) stats.setExperience(stats.getExperience()+30000); // P
 	}
 
 	@Override
