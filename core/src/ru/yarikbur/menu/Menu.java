@@ -42,8 +42,8 @@ public class Menu implements Screen {
 	
 	@SuppressWarnings("static-access")
 	private void rendMenu(){
-//		if(input.getKeycode()==21) 
-		if(input.getKeycode()==35) main.setScreen(new ru.yarikbur.game.player.StatsShow(main));
+		if(input.getKeycode()==47) main.setScreen(new ru.yarikbur.game.player.StatsShow(main)); //Кнопка - 'S'; Показать окно статистики
+		if(input.getKeycode()==35) main.setScreen(new ru.yarikbur.game.Game(main)); //Кнопка - 'G'; Показать игру
 	}
 	
 	float r=0,g=0,b=0;

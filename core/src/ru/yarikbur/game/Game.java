@@ -9,11 +9,13 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import ru.yarikbur.game.player.Stats;
 import ru.yarikbur.input.All;
 import ru.yarikbur.main.Main;
+import ru.yarikbur.world.map.Render;
 
 public class Game implements Screen {
 	private final Main main;
 	private All input = new All();
 	private static Stats stats;
+	private Render renderMap;
 	
 	private SpriteBatch batch;
 	
@@ -27,6 +29,7 @@ public class Game implements Screen {
 		batch = main.getBatch();
 		font = main.getFont();
 		stats = new Stats();
+		renderMap = new Render();
 		
 		Gdx.input.setInputProcessor(input.getInputMultiplexer());
 	}
@@ -38,7 +41,7 @@ public class Game implements Screen {
 		
 		batch.begin();
 		
-		
+		renderMap.renderMap(batch);
 		
 		batch.end();
 	}

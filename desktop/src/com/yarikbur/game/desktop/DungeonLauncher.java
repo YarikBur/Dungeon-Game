@@ -21,10 +21,11 @@ public class DungeonLauncher {
 		config.addIcon("not_atlas\\icon-32.png", FileType.Internal);
 		config.addIcon("not_atlas\\icon-16.png", FileType.Internal);
 		config.title = "Dungeon";
-		config.width = 40*16;
-		config.height = 22*16;
+		config.width = 40*16; //640
+		config.height = 22*16; //352
 		config.resizable = false;
-		input();
+//		input();
+		stats.setName("YarikBur");
 		new LwjglApplication(new Main(), config);
 	}
 	
